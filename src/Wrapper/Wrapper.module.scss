@@ -1,0 +1,34 @@
+.wrapper {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    min-width: 169px;
+    width: 169px;
+    min-height: 100px;
+    // max-height: 50vh;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(0 0 0 / 13%) 0px 2px 12px;
+    border-radius: 8px;
+    padding-top: 8px;
+    animation: linger linear 0.5s;
+    // transition: 300ms;
+
+    transition: opacity 0.5s ease-in-out;
+    transition-delay: 0.5s;
+    z-index: 1;
+    // transform: translateY(20px);
+    // transition: animation 3s;
+    // transform: translateY(0);
+}
+
+@keyframes linger {
+    from {
+        transition: 300ms;
+        opacity: 0;
+    }
+
+    to {
+        transition: 300ms;
+        opacity: 1;
+    }
+}
