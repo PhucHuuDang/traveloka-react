@@ -5,6 +5,17 @@ import styles from "./Advertisement.module.scss";
 const cx = classNames.bind(styles);
 
 function Advertisement() {
+    const children = document.getElementsByTagName("a");
+    // console.log(children);
+
+    const handlePrev = (e) => {
+        console.log(e.target);
+    };
+
+    const handleNext = (e) => {
+        console.log(e.target);
+    };
+
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -46,11 +57,72 @@ function Advertisement() {
                                     alt="ads third"
                                 />
                             </Link>
+
+                            <Link
+                                to="https://www.traveloka.com/en-vn/promotion/epic-vuichoi"
+                                target="_blank"
+                            >
+                                <img
+                                    className={cx("img")}
+                                    // src="./images/AdsImg/test-img.png"
+                                    src="https://ik.imagekit.io/tvlk/image/imageResource/2023/04/05/1680671198534-cb3b5ef3f3d764910076727cec9eb83d.png?tr=dpr-2,h-230,q-75,w-472"
+                                    alt="ads forth"
+                                />
+                            </Link>
+
+                            <Link
+                                to="https://www.traveloka.com/en-vn/promotion/vuiquocte"
+                                target="_blank"
+                            >
+                                <img
+                                    className={cx("img")}
+                                    // src="./images/AdsImg/test-img.png"
+                                    src="https://ik.imagekit.io/tvlk/image/imageResource/2023/04/06/1680750725689-f57c18846724e106e95968ed8a9ca66b.png?tr=dpr-2,h-230,q-75,w-472"
+                                    alt="fifth"
+                                />
+                            </Link>
+
+                            <Link
+                                to="https://www.traveloka.com/en-vn/promotion/vuiquocte"
+                                target="_blank"
+                            >
+                                <img
+                                    className={cx("img")}
+                                    // src="./images/AdsImg/test-img.png"
+                                    src="https://ik.imagekit.io/tvlk/image/imageResource/2022/12/22/1671695795881-fc9f8b5c67e1dab8e8341a72fc1827de.png?tr=dpr-2,h-230,q-75,w-472"
+                                    alt="fifth"
+                                />
+                            </Link>
                         </div>
                     </Router>
                 </div>
             </div>
-            <div className={cx("see-more-text")}>See more details</div>
+
+            <div className={cx("details")}>
+                <div className={cx("arrow-left")} onClick={handlePrev}>
+                    <img
+                        src="./images/IconServices/arrow-left.svg"
+                        alt="arrow left"
+                    />
+                </div>
+                <Router>
+                    <div className={cx("see-more-text")}>
+                        <Link
+                            to="https://www.traveloka.com/en-vn/promotion"
+                            target="_blank"
+                        >
+                            See more details
+                        </Link>
+                    </div>
+                </Router>
+
+                <div className={cx("arrow-right")} onClick={handleNext}>
+                    <img
+                        src="./images/IconServices/arrow-right.svg"
+                        alt="arrow right"
+                    />
+                </div>
+            </div>
         </div>
     );
 }

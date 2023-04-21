@@ -11,7 +11,12 @@
     );
     background-image: linear-gradient(-180deg, rgba(0, 160, 255, 0), #0770cd);
 
+    // overflow should be use for parent class
+
+    // overflow: hidden;
+
     .container {
+        overflow: hidden;
     }
 
     .container__block-items {
@@ -49,16 +54,46 @@
         background-color: rgba(1, 148, 243, 1);
     }
 
-    .see-more-text {
+    .details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        .arrow-left {
+            margin-right: 100px;
+
+            img {
+                padding: 0 8px;
+
+                height: 14px;
+                cursor: pointer;
+            }
+        }
+
+        .arrow-right {
+            margin-left: 100px;
+            img {
+                padding: 0 8px;
+                height: 14px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .see-more-text a {
         text-align: center;
         color: rgba(255, 255, 255, 1);
         text-shadow: 0 2px 4px rgba(27, 27, 27, 0.2);
-        margin-top: 10px;
         font-weight: 800;
         font-size: 12px;
         opacity: 0.8;
         font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI,
             Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji,
             Segoe UI Emoji, Segoe UI Symbol;
+
+        &:hover {
+            text-decoration-line: underline;
+            opacity: 1;
+        }
     }
 }

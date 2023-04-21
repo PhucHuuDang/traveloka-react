@@ -11,7 +11,7 @@ function Accommodation() {
             <div className={cx("wrapper")}>
                 <Link className={cx("item__link")} to="/">
                     <img src="./images/IconServices/hotel.svg" alt="flight" />
-                    <span>Hotel</span>
+                    <span>Hotels</span>
                 </Link>
 
                 <Link className={cx("item__link")} to="/">

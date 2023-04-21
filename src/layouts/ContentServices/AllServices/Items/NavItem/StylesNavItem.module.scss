@@ -1,0 +1,485 @@
+// Nav flight
+
+.wrapper {
+    width: 76%;
+    // width: 380%;
+    padding: 12px;
+    position: relative;
+}
+
+h4 {
+    color: rgb(3, 18, 26);
+    font-weight: 700;
+    line-height: 20px;
+    font-size: 14px;
+    font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+        Segoe UI Symbol;
+}
+
+.container__flight-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(3, 18, 26);
+    font-size: 14px;
+    font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+        Segoe UI Symbol;
+}
+
+// choice radio
+.choice-block {
+    display: flex;
+    align-items: center;
+}
+
+.destination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // label contain input radio css
+    .container-radio {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        padding: 10px;
+
+        input {
+            cursor: pointer;
+        }
+
+        .radio__input {
+            display: none;
+        }
+
+        .radio__radio {
+            // width: 1.25rem;
+            // height: 1.25rem;
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(206, 208, 209, 1);
+            border-radius: 50%;
+            // background-color: rgba(1, 148, 243, 1);
+            box-sizing: border-box;
+            // padding: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: ease-in-out 0.15s;
+
+            // add content in div
+            &::after {
+                content: "";
+                display: block;
+                width: 8px;
+                height: 8px;
+                border: 2px solid rgba(242, 243, 243, 1);
+                border-radius: 50%;
+                transform: scale(1);
+                transition: transform 0.15s;
+            }
+        }
+
+        // css when check
+        .radio__input:checked + .radio__radio::after {
+            // transform: scale(1);
+            background-color: rgba(1, 148, 243, 1);
+        }
+        .radio__input:checked + .radio__radio {
+            border: 2px solid rgb(1, 148, 243);
+            background-color: rgba(1, 148, 243, 1);
+            transition: ease-in-out 0.15s;
+        }
+
+        label {
+            cursor: pointer;
+        }
+    }
+
+    h4 {
+        margin-left: 10px;
+    }
+}
+
+.destination:nth-child(2) {
+    margin-left: 20px;
+}
+
+.map {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10rem;
+    font-weight: 700;
+    text-align: center;
+    color: rgb(1, 148, 243);
+    line-height: 16px;
+
+    .map-block {
+        margin-left: 8px;
+    }
+}
+
+// contain info flight from - to & types passengers
+.container__info-way {
+    display: flex;
+    // align-items: center;
+    margin: 10px;
+
+    .way-block {
+        display: flex;
+        width: 50%;
+        margin-right: 20px;
+    }
+
+    .passengers-block {
+        margin-left: 20px;
+        width: 135%;
+        .info-passengers {
+            width: 100%;
+            .passenger__seat {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                border-top: 1px solid #ced0d1;
+                border: 1px solid rgba(206, 208, 209, 1);
+                padding: 8px;
+                border-radius: 8px;
+                margin-top: 5px;
+                width: 98.2%;
+                cursor: pointer;
+                line-height: 24px;
+                font-size: 16px;
+                font-family: MuseoSans, -apple-system, BlinkMacSystemFont,
+                    Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+                    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+                &:hover {
+                    border: 1px solid rgb(104, 113, 118);
+                }
+
+                img {
+                    margin-right: 8px;
+                }
+
+                h4 {
+                    width: 90%;
+                }
+            }
+        }
+    }
+
+    .info {
+        width: 50%;
+        .address {
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #ced0d1;
+            border: 1px solid rgba(206, 208, 209, 1);
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 8px;
+
+            // width: 90%;
+
+            &:hover {
+                border: 1px solid rgb(104, 113, 118);
+            }
+
+            img {
+                margin-right: 8px;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    input {
+        // outline: none;
+        // width: 100%;
+        line-height: 24px;
+        font-size: 16px;
+        border: 0;
+        outline-width: 0px;
+
+        overflow: hidden;
+        font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI,
+            Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji,
+            Segoe UI Emoji, Segoe UI Symbol;
+    }
+}
+
+.reverse-icon {
+    position: relative;
+    background-color: rgba(1, 148, 243, 1);
+    border-radius: 50%;
+    margin-top: 20px;
+}
+
+// calendar and seat class
+
+.container__date {
+    display: flex;
+    margin: 10px;
+    margin-top: 30px;
+
+    .container__date-block {
+        display: flex;
+        align-items: center;
+        width: 60%;
+        // width: 55%;
+        margin-right: 20px;
+
+        .info-date {
+            width: 80%;
+            &:nth-child(2) {
+                margin-left: 23px;
+            }
+
+            label {
+                display: flex;
+                align-items: center;
+                color: rgb(3, 18, 26);
+                width: 65%;
+                font-weight: 700;
+                line-height: 20px;
+                font-size: 14px;
+                cursor: pointer;
+                font-family: MuseoSans, -apple-system, BlinkMacSystemFont,
+                    Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+                    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+            }
+
+            input {
+                margin-right: 5px;
+            }
+
+            h4 {
+                display: flex;
+                align-items: center;
+            }
+
+            .calendar {
+                svg {
+                    margin-right: 8px;
+                }
+                display: flex;
+                align-items: center;
+                margin-top: 5px;
+                border-radius: 8px;
+                padding: 8px;
+                font-weight: 430;
+                line-height: 24px;
+                font-size: 16px;
+                cursor: pointer;
+                border: 1px solid rgba(206, 208, 209, 1);
+
+                overflow: hidden;
+                font-family: MuseoSans, -apple-system, BlinkMacSystemFont,
+                    Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+                    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+                &:hover {
+                    border: 1px solid rgb(104, 113, 118);
+                }
+            }
+            .calendar:nth-child(1) {
+                display: none;
+            }
+        }
+    }
+
+    .seats-block {
+        width: 50%;
+        .info-seats {
+            width: 100%;
+            .seat-content {
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                margin-top: 5px;
+                border-radius: 8px;
+                width: 100%;
+                cursor: pointer;
+                border: 1px solid rgba(206, 208, 209, 1);
+                line-height: 24px;
+                font-weight: 400;
+                font-size: 16px;
+                font-family: MuseoSans, -apple-system, BlinkMacSystemFont,
+                    Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+                    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+
+                &:hover {
+                    border: 1px solid rgb(104, 113, 118);
+                }
+
+                img {
+                    margin-right: 8px;
+                }
+
+                h4 {
+                    font-size: 16px;
+                    line-height: 24px;
+                    font-weight: 500;
+                    width: 78%;
+                    font-family: MuseoSans, -apple-system, BlinkMacSystemFont,
+                        Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+                        Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+                }
+
+                svg {
+                    position: relative;
+                    flex: 1;
+                    // right: -60%;
+
+                    // background-color: red;
+                }
+            }
+        }
+    }
+}
+
+// passenger wrapper
+.shown {
+    .container__block-passengers {
+        display: flex;
+        width: 330px;
+        justify-content: space-between;
+        align-items: center;
+        .adult-block {
+            display: flex;
+            // width: 100%;
+            padding: 10px;
+
+            .content {
+                margin-left: 10px;
+
+                h4 {
+                    color: rgb(3, 18, 26);
+                    line-height: 24px;
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+
+                span {
+                    font-size: 12px;
+                    color: rgb(104, 113, 118);
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .add__seat-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // margin-left: 10px;
+            margin-right: 20px;
+
+            img {
+                padding: 5px;
+                width: 28px;
+                cursor: pointer;
+            }
+
+            .number {
+                margin-left: 20px;
+                margin-right: 20px;
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+// tippy content
+
+.container-content {
+    background-color: rgba(206, 208, 209, 1);
+    padding: 20px;
+    border-radius: 8px;
+    line-height: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: ease-in-out 1s;
+}
+
+// button
+
+.button {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    button {
+        background-color: transparent;
+        padding: 5px;
+        border: 0;
+        color: rgb(1, 148, 243);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI,
+            Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji,
+            Segoe UI Emoji, Segoe UI Symbol;
+    }
+}
+
+.container__seat-class {
+    position: relative;
+    width: 326px;
+
+    .item__contain {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+
+        &:hover {
+            transition: background-color 200ms ease 0s;
+            background-color: rgb(247, 249, 250);
+            cursor: pointer;
+            // background-color: red;
+
+            .circle {
+                background-color: rgba(206, 208, 209, 1);
+                transition: background-color 300ms ease 0s;
+            }
+        }
+        .circle {
+            // display: block;
+            border-radius: 9999px;
+            width: 8px;
+            height: 8px;
+            margin-right: 8px;
+            // background-color: rgba(1, 148, 243, 1);
+            transition: background-color 200ms ease 0s;
+        }
+
+        h4 {
+            width: 100%;
+            cursor: pointer;
+            transition: color 200ms ease 0s;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 500;
+            font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI,
+                Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji,
+                Segoe UI Emoji, Segoe UI Symbol;
+        }
+    }
+}
+
+.group {
+}
+.test-calendar {
+    background-color: white;
+    // background-color: red;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px;
+    transition: ease-in 1s;
+}

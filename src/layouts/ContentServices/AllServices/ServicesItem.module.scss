@@ -19,10 +19,11 @@
 
         background-color: rgba(255, 255, 255, 1);
         box-shadow: 0px 2px 5px rgba(3, 18, 26, 0.15);
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
+        // border-bottom-left-radius: 6px;
+        // border-bottom-right-radius: 6px;
+        // border-top-left-radius: 6px;
+        // border-top-right-radius: 6px;
+        border-radius: 6px;
         z-index: 1;
 
         .services__container-left {
@@ -109,3 +110,15 @@
         // transition: transform 0.3s;
     }
 }
+
+._item__link_yhgpa_8 {
+    margin-bottom: 0;
+}
+
+.test:hover {
+    background-color: red;
+    width: 100%;
+    flex: 1;
+}
+
+// item css to copy
