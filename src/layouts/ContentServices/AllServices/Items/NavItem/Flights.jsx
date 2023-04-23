@@ -9,66 +9,99 @@ import Wrapper from "../../../../../Wrapper/Wrapper";
 import { useEffect, useState, useRef, Fragment } from "react";
 
 import "tippy.js/animations/scale.css";
+import { set } from "immutable";
 
 const cx = classNames.bind(styles);
 
 function FlightsItem() {
+    // set passengers notice
     const [adult, setAdult] = useState(1);
     const [child, setChild] = useState(0);
     const [infant, setInfant] = useState(0);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [notice, setNotice] = useState(false);
+    const [noticeChild, setNoticeChild] = useState(false);
+    const [noticeInfant, setNoticeInfant] = useState(false);
+
+    // set check
     const [check, setCheck] = useState(false);
     const [departureWay, setDepartureWay] = useState("TP HCM (SGN)");
     const [returnWay, setReturnWay] = useState("Buôn Ma Thuột (BMV)");
     // passengers notice
-    const [notice, setNotice] = useState(false);
     const [done, setDone] = useState(false);
     // seat class notice
     const [renderSeatBlock, setRenderSeatBlock] = useState(false);
     const [seatClass, setSeatClass] = useState("Economy");
 
-    const [valueDate, setValueDate] = useState(null, null);
-
-    const [date, setDate] = useState(new Date());
+    const [isActiveClass, setIsActiveClass] = useState(false);
 
     const [changeColor, setChangeColor] = useState([
         {
-            // backgroundColor: "rgba(1, 148, 243, 1)",
-            // color: "rgba(1, 148, 243, 1)",
+            backgroundColor: "rgba(1, 148, 243, 1)",
+            color: "rgba(1, 148, 243, 1)",
         },
-
-        {
-            // backgroundColor: "rgba(1, 148, 243, 1)",
-            // color: "rgba(1, 148, 243, 1)",
-        },
-
-        {
-            // backgroundColor: "rgba(1, 148, 243, 1)",
-            // color: "rgba(1, 148, 243, 1)",
-        },
-
-        {
-            // backgroundColor: "rgba(1, 148, 243, 1)",
-            // color: "rgba(1, 148, 243, 1)",
-        },
+        {},
+        {},
+        {},
     ]);
 
+    // logic passenger
+    // const validateAdult = (value) => value > 7;
+    // const validateChild = (value) => value > 6;
+    // const validateInfant = (value) => value > adult;
+
+    // const handleInputChange = (setter, validator) => (event) => {
+    //     const value = parseInt(event.target.innerText, 10);
+    //     setter(value);
+    //     if (validator(value)) {
+    //         return <BlockLimitPassengers value />;
+    //     } else {
+    //         return "";
+    //     }
+    // };
+
+    // visibleCalendar first
     const [visibleCalendar, setVisibleCalendar] = useState(false);
+    // visibleCalendar second
+    const [isVisibleCalendarSecond, setIsVisibleCalendarSecond] =
+        useState(false);
 
     // handle change color when click chose seat class
     const [activeStyle, setActiveStyle] = useState(null);
 
-    // const handleChangeColor = (index) => {
-    //     console.log(index);
-    //     const styles = [...changeColor];
-    //     styles[index] = {
-    //         backgroundColor: "rgba(1, 148, 243, 1)",
-    //         color: "rgba(1, 148, 243, 1)",
-    //     };
-    //     setChangeColor(styles);
+    //set date
+    const [valueDate, setValueDate] = useState(() => new Date());
+    const [valueDateReturn, setValueDateReturn] = useState(() => new Date());
+
+    // const stringDate = valueDate.toString();
+    const options = {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    };
+
+    const dateString = valueDate.toLocaleDateString("en-VN", options);
+    const dateReturnString = valueDateReturn.toLocaleDateString(
+        "en-VN",
+        options
+    );
+
+    useEffect(() => {
+        // return valueDate;
+        setValueDate(valueDate);
+    }, [valueDate]);
+
+    useEffect(() => {
+        setValueDateReturn((prev) => prev);
+    }, [valueDateReturn]);
+
+    console.log("outside");
+
+    // const handleChangeDate = (e) => {
+    //     setValueDate(e);
     // };
 
-    const ref = useRef();
-
+    // change color border and color in seat class
     const handleChangeColor = (index) => {
         const newStyle = changeColor.map((item, i) => {
             if (i === index) {
@@ -100,9 +133,11 @@ function FlightsItem() {
 
     // handle in booking seat of adult
 
+    const validate = adult === 7 || child === 6;
+
     // handle logic show condition passengers
     const handleMoreSeat = () => {
-        if (adult === 7) {
+        if (validate) {
             setNotice(true);
             setTimeout(() => {
                 setNotice(false);
@@ -122,9 +157,11 @@ function FlightsItem() {
 
     // handle in booking seat of child
     const handleMoreSeatChild = () => {
-        if (child === 6) {
-            // setConditionContent();
-            alert("cannot booking more than 7 in each booking");
+        if (validate) {
+            setNoticeChild(true);
+            setTimeout(() => {
+                setNoticeChild(false);
+            }, 2000);
             return "";
         }
         setChild((prev) => prev + 1);
@@ -138,11 +175,23 @@ function FlightsItem() {
     };
 
     // handle in booking seat of infant
+    const validateFourInfant = adult === 7 && infant === 4;
+    const validateOneInfant = adult === 1 && infant === 1;
     const handleMoreSeatInfant = () => {
-        if (infant === 1) {
-            alert("cannot booking more than 7 in each booking");
+        if (validateFourInfant || validateOneInfant) {
+            setNoticeInfant(true);
+            setTimeout(() => {
+                setNoticeInfant(false);
+            }, 2000);
             return "";
         }
+        // else if (validateOneInfant) {
+        //     setNoticeInfant(true);
+        //     setTimeout(() => {
+        //         setNoticeInfant(false);
+        //     }, 2000);
+        //     return "";
+        // }
         setInfant((prev) => prev + 1);
     };
 
@@ -159,11 +208,6 @@ function FlightsItem() {
         setDone(true);
     };
 
-    // handle hide passengers
-    // const handleHideButton = (e) => {
-    //     setDone(false);
-    // };
-
     // handle block limit passengers
     const blockLimitPassengers = () => {
         return (
@@ -174,6 +218,15 @@ function FlightsItem() {
             </div>
         );
     };
+    // const BlockLimitPassengers = (value) => {
+    //     return (
+    //         <div className={cx("container-content")}>
+    //             Only seven {value} adult and child <br /> passengers are allowed
+    //             in <br />
+    //             each booking
+    //         </div>
+    //     );
+    // };
 
     // render return date
     // const RenderReturnDate = () => {
@@ -202,12 +255,40 @@ function FlightsItem() {
                     size="lg"
                     // defaultDate={new Date()}
                     minDate={new Date()}
+                    // value={stringDate}
                     value={valueDate}
                     // if we try to setSate in onChange we will get the error bad code
-                    onChange={setValueDate(valueDate)}
+                    onChange={setValueDate}
                     style={{
                         position: "absolute",
                         top: 0,
+                        // borderRadius: "20px",
+                        transition: "ease 1s",
+                    }}
+                />
+            </Group>
+        );
+    };
+
+    const renderCalendarReturn = () => {
+        return (
+            <Group className={cx("group")}>
+                <DatePicker
+                    className={cx("test-calendar")}
+                    numberOfColumns={2}
+                    size="lg"
+                    // defaultDate={new Date()}
+                    minDate={new Date()}
+                    // value={stringDate}
+                    // value={valueDate}
+                    // if we try to setSate in onChange we will get the error bad code
+                    onChange={setValueDateReturn}
+                    style={{
+                        color: "blue",
+                        position: "absolute",
+                        top: 48,
+                        left: -30,
+                        // right: 0,
                         // borderRadius: "20px",
                         transition: "ease 1s",
                     }}
@@ -329,10 +410,17 @@ function FlightsItem() {
                         </div>
 
                         <div className={cx("add__seat-more")}>
+                            <img
+                                onClick={handleMinusSeat}
+                                src="./images/NavIcon/distract.svg"
+                                alt="distract"
+                            />
+
+                            <div className={cx("number")}>{adult}</div>
                             <div>
                                 <Tippy
                                     arrow
-                                    offset={[-50, 110]}
+                                    offset={[-127, 112]}
                                     delay={[500, 0]}
                                     placement="top"
                                     visible={notice}
@@ -341,18 +429,12 @@ function FlightsItem() {
                                     render={notice && blockLimitPassengers}
                                 >
                                     <img
-                                        onClick={handleMinusSeat}
-                                        src="./images/NavIcon/distract.svg"
+                                        onClick={handleMoreSeat}
+                                        src="./images/NavIcon/plusIcon.svg"
                                         alt="distract"
                                     />
                                 </Tippy>
                             </div>
-                            <div className={cx("number")}>{adult}</div>
-                            <img
-                                onClick={handleMoreSeat}
-                                src="./images/NavIcon/plusIcon.svg"
-                                alt="distract"
-                            />
                         </div>
                     </div>
 
@@ -372,11 +454,25 @@ function FlightsItem() {
                                 alt="distract"
                             />
                             <div className={cx("number")}>{child}</div>
-                            <img
-                                onClick={handleMoreSeatChild}
-                                src="./images/NavIcon/plusIcon.svg"
-                                alt="distract"
-                            />
+                            <div>
+                                <Tippy
+                                    arrow
+                                    offset={[-127, 173]}
+                                    delay={[500, 0]}
+                                    placement="top"
+                                    visible={noticeChild}
+                                    interactive
+                                    animation={{ duration: [3000, 2000] }}
+                                    render={noticeChild && blockLimitPassengers}
+                                >
+                                    <img
+                                        // onClick={handleMoreSeatChild}
+                                        onClick={handleMoreSeatChild}
+                                        src="./images/NavIcon/plusIcon.svg"
+                                        alt="distract"
+                                    />
+                                </Tippy>
+                            </div>
                         </div>
                     </div>
 
@@ -396,11 +492,26 @@ function FlightsItem() {
                                 alt="distract"
                             />
                             <div className={cx("number")}>{infant}</div>
-                            <img
-                                onClick={handleMoreSeatInfant}
-                                src="./images/NavIcon/plusIcon.svg"
-                                alt="distract"
-                            />
+                            <div>
+                                <Tippy
+                                    arrow
+                                    offset={[-127, 234]}
+                                    delay={[500, 0]}
+                                    placement="top"
+                                    visible={noticeInfant}
+                                    interactive
+                                    animation={{ duration: [3000, 2000] }}
+                                    render={
+                                        noticeInfant && blockLimitPassengers
+                                    }
+                                >
+                                    <img
+                                        onClick={handleMoreSeatInfant}
+                                        src="./images/NavIcon/plusIcon.svg"
+                                        alt="distract"
+                                    />
+                                </Tippy>
+                            </div>
                         </div>
                     </div>
                     <div className={cx("button")}>
@@ -559,6 +670,8 @@ function FlightsItem() {
                     </div>
                 </div>
 
+                {/* date calendar */}
+
                 <dir className={cx("container__date")}>
                     <dir className={cx("container__date-block")}>
                         <dir className={cx("info-date")}>
@@ -585,28 +698,70 @@ function FlightsItem() {
                                     // value={valueDate}
                                 >
                                     <CalendarIcon />
-                                    Apr {valueDate}, 2023
+
+                                    {/* i was change to clean */}
+                                    {dateString}
                                 </div>
                             </Tippy>
                         </dir>
 
                         <dir className={cx("info-date")}>
-                            <Tippy>
-                                <label htmlFor="date">
-                                    <input
-                                        type="checkbox"
-                                        name="date"
-                                        id="date"
-                                        checked={check}
-                                        onChange={() => setCheck(!check)}
+                            <label
+                                htmlFor="date"
+                                className={cx(check ? "checkbox" : "")}
+                                // onClick={handleAddClass}
+                            >
+                                <input
+                                    type="checkbox"
+                                    name="date"
+                                    id="date"
+                                    // checked={check}
+                                    defaultChecked={!check}
+                                    // onClick={handleAddClass}
+                                    onChange={() => setCheck((show) => !show)}
+                                />
+                                Return Date
+                            </label>
+                            <Tippy
+                                visible={
+                                    check === true
+                                        ? !isVisibleCalendarSecond
+                                        : isVisibleCalendarSecond
+                                }
+                                render={
+                                    check !== true &&
+                                    isVisibleCalendarSecond &&
+                                    renderCalendarReturn
+                                }
+                                interactive
+                                offset={[-60, 0]}
+                                onClickOutside={() =>
+                                    setIsVisibleCalendarSecond(false)
+                                }
+                            >
+                                <div
+                                    className={cx(
+                                        "calendar",
+                                        check ? "testClass" : ""
+                                    )}
+                                    onClick={() =>
+                                        setIsVisibleCalendarSecond(
+                                            (show) => !show
+                                        )
+                                    }
+                                    style={{
+                                        border: isVisibleCalendarSecond
+                                            ? "2px solid rgb(1, 148, 243)"
+                                            : "1px solid rgba(206, 208, 209, 1)",
+                                        transition: "border 300ms",
+                                    }}
+                                >
+                                    <CalendarIcon
+                                        className={cx("icon-calendar")}
                                     />
-                                    Return Date
-                                </label>
+                                    {dateReturnString}
+                                </div>
                             </Tippy>
-                            <div className={cx("calendar")}>
-                                <CalendarIcon />
-                                Apr 13, 2023
-                            </div>
                             {/* <RenderReturnDate /> */}
                         </dir>
                     </dir>
@@ -636,8 +791,8 @@ function FlightsItem() {
                                     }
                                 >
                                     <img
-                                        src="./images/NavIcon/seat-icon.svg"
                                         alt="seat-icon"
+                                        src="./images/NavIcon/seat-icon.svg"
                                     />
                                     <h4>{seatClass}</h4>
                                     <ArrowSeatIcon />
