@@ -2,18 +2,25 @@ import Tippy from "@tippyjs/react";
 import { Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { CalendarIcon, ArrowSeatIcon } from "../../../../../../images/icon";
+import {
+    CalendarIcon,
+    ArrowSeatIcon,
+    SearchIcon,
+} from "../../../../../../images/icon";
 import classNames from "classnames/bind";
 import styles from "./StylesNavItem.module.scss";
 import Wrapper from "../../../../../Wrapper/Wrapper";
 import { useEffect, useState, useRef, Fragment } from "react";
+import MultiCities from "./Flight/MultiCites";
 
-import "tippy.js/animations/scale.css";
-import { set } from "immutable";
+// import "tippy.js/animations/scale.css";
 
 const cx = classNames.bind(styles);
 
-function FlightsItem() {
+function FlightsItem({ setCheckHeight }) {
+    // check filed check
+    const [oneWay, setOneWay] = useState(true);
+
     // set passengers notice
     const [adult, setAdult] = useState(1);
     const [child, setChild] = useState(0);
@@ -33,7 +40,7 @@ function FlightsItem() {
     const [renderSeatBlock, setRenderSeatBlock] = useState(false);
     const [seatClass, setSeatClass] = useState("Economy");
 
-    const [isActiveClass, setIsActiveClass] = useState(false);
+    // const [isActiveClass, setIsActiveClass] = useState(false);
 
     const [changeColor, setChangeColor] = useState([
         {
@@ -87,12 +94,13 @@ function FlightsItem() {
     );
 
     useEffect(() => {
-        // return valueDate;
         setValueDate(valueDate);
+        setVisibleCalendar(false);
     }, [valueDate]);
 
     useEffect(() => {
         setValueDateReturn((prev) => prev);
+        setIsVisibleCalendarSecond(false);
     }, [valueDateReturn]);
 
     console.log("outside");
@@ -122,17 +130,7 @@ function FlightsItem() {
         setActiveStyle(index);
     };
 
-    // handle change value in input way flight
-    const handleChangeDepartureWay = (e) => {
-        setDepartureWay(e.target.value);
-    };
-
-    const handleChangeReturnWay = (e) => {
-        setReturnWay(e.target.value);
-    };
-
     // handle in booking seat of adult
-
     const validate = adult === 7 || child === 6;
 
     // handle logic show condition passengers
@@ -149,7 +147,7 @@ function FlightsItem() {
     };
 
     const handleMinusSeat = () => {
-        if (adult === 0) {
+        if (adult === 1) {
             return "";
         }
         setAdult((prev) => prev - 1);
@@ -202,12 +200,6 @@ function FlightsItem() {
         setInfant((prev) => prev - 1);
     };
 
-    // handle show passengers
-
-    const showPassengers = () => {
-        setDone(true);
-    };
-
     // handle block limit passengers
     const blockLimitPassengers = () => {
         return (
@@ -218,30 +210,12 @@ function FlightsItem() {
             </div>
         );
     };
-    // const BlockLimitPassengers = (value) => {
-    //     return (
-    //         <div className={cx("container-content")}>
-    //             Only seven {value} adult and child <br /> passengers are allowed
-    //             in <br />
-    //             each booking
-    //         </div>
-    //     );
-    // };
-
-    // render return date
-    // const RenderReturnDate = () => {
-    //     return (
-    //         <div className={cx("calendar")}>
-    //             <CalendarIcon />
-    //             Apr 13, 2023
-    //         </div>
-    //     );
-    // };
 
     // handle click iem
     const handleChangeText = (e) => {
         console.log(e.target);
         setSeatClass(e.target.innerText);
+        setRenderSeatBlock(false);
     };
 
     //renderCalendar
@@ -329,9 +303,7 @@ function FlightsItem() {
 
                             <div
                                 className={cx("item__contain")}
-                                onClick={() =>
-                                    handleChangeColor(1) && handleClickItem
-                                }
+                                onClick={() => handleChangeColor(1)}
                             >
                                 <div
                                     className={cx("circle")}
@@ -525,13 +497,17 @@ function FlightsItem() {
 
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("container__flight")}>
+            <div
+                className={cx("container__flight")}
+                style={{ width: oneWay ? "" : "1000px" }}
+            >
                 <div className={cx("container__flight-info")}>
                     <div className={cx("choice-block")}>
                         <div className={cx("destination")}>
                             <label
                                 className={cx("container-radio")}
                                 htmlFor="labelRadio-first"
+                                onClick={() => setOneWay(true)}
                             >
                                 <input
                                     className={cx("radio__input")}
@@ -543,33 +519,27 @@ function FlightsItem() {
                                 />
                                 <dir className={cx("radio__radio")}></dir>
                                 <h4>One-way / Round-trip</h4>
+                                {/* {console.log(checkHeight)} */}
                             </label>
                         </div>
-
-                        <div
-                            className={cx("destination")}
-                            // aria-checked="false"
-                            // role="radio"
-                            // tabIndex="1"
-                        >
+                        <div className={cx("destination")}>
                             <label
                                 id={"two"}
                                 className={cx("container-radio")}
                                 htmlFor="labelRadio-second"
+                                onClick={() => setOneWay(false)}
                             >
                                 <input
                                     className={cx("radio__input")}
                                     type="radio"
                                     name="radioName"
                                     id="labelRadio-second"
-                                    // checked
+                                    // checked={wayCheckedSecond}
                                 />
                                 <dir className={cx("radio__radio")}></dir>
                                 <h4>Multi-city</h4>
                             </label>
                         </div>
-
-                        <div className={cx("city")}></div>
                     </div>
                     <Router>
                         <Link to="https://www.traveloka.com/en-vn/flight/discover">
@@ -583,227 +553,256 @@ function FlightsItem() {
                         </Link>
                     </Router>
                 </div>
-
-                <div className={cx("container__info-way")}>
-                    <div className={cx("way-block")}>
-                        <div className={cx("info")}>
-                            <h4>From</h4>
-                            <div className={cx("address")}>
-                                <img
-                                    src="./images/NavIcon/flight-from.svg"
-                                    alt="flight from"
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="TP HCM (SGN)"
-                                    value={departureWay}
-                                    // onChange={handleChangeDepartureWay}
-                                    onChange={(e) =>
-                                        setDepartureWay(e.target.value)
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <div className={cx("info")}>
-                            <img
-                                className={cx("reverse-icon")}
-                                src="./images/NavIcon/reverse.svg"
-                                alt="flight to"
-                            />
-                        </div>
-                        <div className={cx("info")}>
-                            <h4>To</h4>
-                            <div className={cx("address")}>
-                                <img
-                                    src="./images/NavIcon/flight-to.svg"
-                                    alt="flight to"
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="TP HCM (SGN)"
-                                    value={returnWay}
-                                    // onChange={handleChangeReturnWay}
-                                    onChange={(e) =>
-                                        setReturnWay(e.target.value)
-                                    }
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <Tippy
-                            interactive
-                            placement="bottom"
-                            // trigger="click"
-                            visible={done}
-                            render={done && handlePassenger}
-                            // toggle
-                            onClickOutside={() => setDone(false)}
-                        >
-                            <div
-                                className={cx("passengers-block")}
-                                // set toggle
-                                onClick={() => setDone((prev) => !prev)}
-                            >
-                                <div className={cx("info-passengers")}>
-                                    <h4>No. of Passengers</h4>
-                                    <div
-                                        className={cx("passenger__seat")}
-                                        style={{
-                                            border: done
-                                                ? "2px solid rgb(1, 148, 243)"
-                                                : "1px solid rgba(206, 208, 209, 1)",
-
-                                            transition: "border 200ms",
-                                        }}
-                                    >
+                {oneWay ? (
+                    <Fragment>
+                        <div className={cx("container__info-way")}>
+                            <div className={cx("way-block")}>
+                                <div className={cx("info")}>
+                                    <h4>From</h4>
+                                    <div className={cx("address")}>
                                         <img
-                                            src="./images/NavIcon/passengers.svg"
-                                            alt="passengers"
+                                            src="./images/NavIcon/flight-from.svg"
+                                            alt="flight from"
                                         />
-                                        {adult} Adult, {child} Child, {infant}{" "}
-                                        Infant
+                                        <input
+                                            type="text"
+                                            placeholder="TP HCM (SGN)"
+                                            value={departureWay}
+                                            onChange={(e) =>
+                                                setDepartureWay(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                                <div className={cx("info")}>
+                                    <img
+                                        className={cx("reverse-icon")}
+                                        src="./images/NavIcon/reverse.svg"
+                                        alt="flight to"
+                                    />
+                                </div>
+                                <div className={cx("info")}>
+                                    <h4>To</h4>
+                                    <div className={cx("address")}>
+                                        <img
+                                            src="./images/NavIcon/flight-to.svg"
+                                            alt="flight to"
+                                        />
+                                        <input
+                                            type="text"
+                                            placeholder="TP HCM (SGN)"
+                                            value={returnWay}
+                                            onChange={(e) =>
+                                                setReturnWay(e.target.value)
+                                            }
+                                        />
                                     </div>
                                 </div>
                             </div>
-                        </Tippy>
-                    </div>
-                </div>
-
-                {/* date calendar */}
-
-                <dir className={cx("container__date")}>
-                    <dir className={cx("container__date-block")}>
-                        <dir className={cx("info-date")}>
-                            <h4>Departure Date</h4>
-                            <Tippy
-                                interactive
-                                placement="left-end"
-                                offset={[5, 0]}
-                                visible={visibleCalendar}
-                                render={visibleCalendar && renderCalendar}
-                                onClickOutside={() => setVisibleCalendar(false)}
-                            >
-                                <div
-                                    className={cx("calendar")}
-                                    onClick={() =>
-                                        setVisibleCalendar((show) => !show)
-                                    }
-                                    style={{
-                                        border: visibleCalendar
-                                            ? "2px solid rgb(1, 148, 243)"
-                                            : "1px solid rgba(206, 208, 209, 1)",
-                                        transition: "border 300ms",
-                                    }}
-                                    // value={valueDate}
+                            <div>
+                                <Tippy
+                                    interactive
+                                    placement="bottom"
+                                    // trigger="click"
+                                    visible={done}
+                                    render={done && handlePassenger}
+                                    // toggle
+                                    onClickOutside={() => setDone(false)}
                                 >
-                                    <CalendarIcon />
+                                    <div
+                                        className={cx("passengers-block")}
+                                        // set toggle
+                                        onClick={() => setDone((prev) => !prev)}
+                                    >
+                                        <div className={cx("info-passengers")}>
+                                            <h4>No. of Passengers</h4>
+                                            <div
+                                                className={cx(
+                                                    "passenger__seat"
+                                                )}
+                                                style={{
+                                                    border: done
+                                                        ? "2px solid rgb(1, 148, 243)"
+                                                        : "1px solid rgba(206, 208, 209, 1)",
 
-                                    {/* i was change to clean */}
-                                    {dateString}
-                                </div>
-                            </Tippy>
-                        </dir>
-
-                        <dir className={cx("info-date")}>
-                            <label
-                                htmlFor="date"
-                                className={cx(check ? "checkbox" : "")}
-                                // onClick={handleAddClass}
-                            >
-                                <input
-                                    type="checkbox"
-                                    name="date"
-                                    id="date"
-                                    // checked={check}
-                                    defaultChecked={!check}
-                                    // onClick={handleAddClass}
-                                    onChange={() => setCheck((show) => !show)}
-                                />
-                                Return Date
-                            </label>
-                            <Tippy
-                                visible={
-                                    check === true
-                                        ? !isVisibleCalendarSecond
-                                        : isVisibleCalendarSecond
-                                }
-                                render={
-                                    check !== true &&
-                                    isVisibleCalendarSecond &&
-                                    renderCalendarReturn
-                                }
-                                interactive
-                                offset={[-60, 0]}
-                                onClickOutside={() =>
-                                    setIsVisibleCalendarSecond(false)
-                                }
-                            >
-                                <div
-                                    className={cx(
-                                        "calendar",
-                                        check ? "testClass" : ""
-                                    )}
-                                    onClick={() =>
-                                        setIsVisibleCalendarSecond(
-                                            (show) => !show
-                                        )
-                                    }
-                                    style={{
-                                        border: isVisibleCalendarSecond
-                                            ? "2px solid rgb(1, 148, 243)"
-                                            : "1px solid rgba(206, 208, 209, 1)",
-                                        transition: "border 300ms",
-                                    }}
-                                >
-                                    <CalendarIcon
-                                        className={cx("icon-calendar")}
-                                    />
-                                    {dateReturnString}
-                                </div>
-                            </Tippy>
-                            {/* <RenderReturnDate /> */}
-                        </dir>
-                    </dir>
-
-                    <div className={cx("seats-block")}>
-                        <div className={cx("info-seats")}>
-                            <h4>Seat class</h4>
-                            <Tippy
-                                interactive
-                                visible={renderSeatBlock}
-                                render={renderSeatBlock && blockSeatClass}
-                                placement="bottom"
-                                offset={[0, 5]}
-                                onClickOutside={() => setRenderSeatBlock(false)}
-                            >
-                                <div
-                                    className={cx("seat-content")}
-                                    style={{
-                                        border: renderSeatBlock
-                                            ? "2px solid rgb(1, 148, 243)"
-                                            : "1px solid rgba(206, 208, 209, 1)",
-                                        transition: "border 200ms",
-                                    }}
-                                    onClick={() =>
-                                        // toggle
-                                        setRenderSeatBlock((prev) => !prev)
-                                    }
-                                >
-                                    <img
-                                        alt="seat-icon"
-                                        src="./images/NavIcon/seat-icon.svg"
-                                    />
-                                    <h4>{seatClass}</h4>
-                                    <ArrowSeatIcon />
-                                </div>
-                            </Tippy>
+                                                    transition: "border 200ms",
+                                                }}
+                                            >
+                                                <img
+                                                    src="./images/NavIcon/passengers.svg"
+                                                    alt="passengers"
+                                                />
+                                                {adult} Adult, {child} Child,{" "}
+                                                {infant} Infant
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Tippy>
+                            </div>
                         </div>
-                        {/* <Group className={cx("group")}>
-                            <DatePicker className={cx("test-calendar")} />
-                        </Group> */}
-                    </div>
-                </dir>
+
+                        <dir className={cx("container__date")}>
+                            <dir className={cx("container__date-block")}>
+                                <dir className={cx("info-date")}>
+                                    <h4>Departure Date</h4>
+                                    <Tippy
+                                        interactive
+                                        placement="left-end"
+                                        offset={[5, 0]}
+                                        visible={visibleCalendar}
+                                        render={
+                                            visibleCalendar && renderCalendar
+                                        }
+                                        onClickOutside={() =>
+                                            setVisibleCalendar(false)
+                                        }
+                                    >
+                                        <div
+                                            className={cx("calendar")}
+                                            onClick={() =>
+                                                setVisibleCalendar(
+                                                    (show) => !show
+                                                )
+                                            }
+                                            style={{
+                                                border: visibleCalendar
+                                                    ? "2px solid rgb(1, 148, 243)"
+                                                    : "1px solid rgba(206, 208, 209, 1)",
+                                                transition: "border 300ms",
+                                            }}
+                                            // value={valueDate}
+                                        >
+                                            <CalendarIcon />
+
+                                            {/* i was change to clean */}
+                                            {dateString}
+                                        </div>
+                                    </Tippy>
+                                </dir>
+
+                                <dir className={cx("info-date")}>
+                                    <label
+                                        htmlFor="date"
+                                        className={cx(check ? "checkbox" : "")}
+                                        // onClick={handleAddClass}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            name="date"
+                                            id="date"
+                                            // checked={check}
+                                            defaultChecked={!check}
+                                            // onClick={handleAddClass}
+                                            onChange={() =>
+                                                setCheck((show) => !show)
+                                            }
+                                        />
+                                        Return Date
+                                    </label>
+                                    <Tippy
+                                        visible={
+                                            check === true
+                                                ? !isVisibleCalendarSecond
+                                                : isVisibleCalendarSecond
+                                        }
+                                        render={
+                                            check !== true &&
+                                            isVisibleCalendarSecond &&
+                                            renderCalendarReturn
+                                        }
+                                        interactive
+                                        offset={[-60, 0]}
+                                        onClickOutside={() =>
+                                            setIsVisibleCalendarSecond(false)
+                                        }
+                                    >
+                                        <div
+                                            className={cx(
+                                                "calendar",
+                                                check ? "testClass" : ""
+                                            )}
+                                            onClick={() =>
+                                                setIsVisibleCalendarSecond(
+                                                    (show) => !show
+                                                )
+                                            }
+                                            style={{
+                                                border: isVisibleCalendarSecond
+                                                    ? "2px solid rgb(1, 148, 243)"
+                                                    : "1px solid rgba(206, 208, 209, 1)",
+                                                transition: "border 300ms",
+                                            }}
+                                        >
+                                            <CalendarIcon
+                                                className={cx("icon-calendar")}
+                                            />
+                                            {dateReturnString}
+                                        </div>
+                                    </Tippy>
+                                    {/* <RenderReturnDate /> */}
+                                </dir>
+                            </dir>
+
+                            <div className={cx("seats-block")}>
+                                <div className={cx("info-seats")}>
+                                    <h4>Seat class</h4>
+                                    <Tippy
+                                        interactive
+                                        visible={renderSeatBlock}
+                                        render={
+                                            renderSeatBlock && blockSeatClass
+                                        }
+                                        placement="bottom"
+                                        offset={[0, 5]}
+                                        onClickOutside={() =>
+                                            setRenderSeatBlock(false)
+                                        }
+                                    >
+                                        <div
+                                            className={cx("seat-content")}
+                                            style={{
+                                                border: renderSeatBlock
+                                                    ? "2px solid rgb(1, 148, 243)"
+                                                    : "1px solid rgba(206, 208, 209, 1)",
+                                                transition: "border 200ms",
+                                            }}
+                                            onClick={() =>
+                                                // toggle
+                                                setRenderSeatBlock(
+                                                    (prev) => !prev
+                                                )
+                                            }
+                                        >
+                                            <img
+                                                alt="seat-icon"
+                                                src="./images/NavIcon/seat-icon.svg"
+                                            />
+                                            <h4>{seatClass}</h4>
+                                            <ArrowSeatIcon />
+                                        </div>
+                                    </Tippy>
+                                </div>
+                                {/* <Group className={cx("group")}>
+                                <DatePicker className={cx("test-calendar")} />
+                            </Group> */}
+                            </div>
+                        </dir>
+                        <div className={cx("btn__search")}>
+                            <Router>
+                                <Link to="https://www.traveloka.com/en-vn/flight/fullsearch?ap=SGN.BMV&dt=25-04-2023.NA&ps=1.0.0&sc=ECONOMY">
+                                    <button className={cx("btn__search-item")}>
+                                        <SearchIcon
+                                            className={cx("search-icon")}
+                                        />
+                                        Search Flights
+                                    </button>
+                                </Link>
+                            </Router>
+                        </div>
+                    </Fragment>
+                ) : (
+                    <MultiCities />
+                )}
             </div>
         </div>
     );

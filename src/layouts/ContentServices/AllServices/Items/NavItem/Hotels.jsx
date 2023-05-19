@@ -3,7 +3,7 @@ import styles from "./StylesNavItem.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Hotels() {
+function HotelsItem() {
     return (
         <div>
             <h1>Hotels</h1>
@@ -11,4 +11,4 @@ function Hotels() {
     );
 }
 
-export default Hotels;
+export default HotelsItem;

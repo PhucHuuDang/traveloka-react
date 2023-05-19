@@ -1,0 +1,412 @@
+@mixin fontStyle {
+    font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+        Segoe UI Symbol;
+}
+
+@mixin guestCommon {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+@mixin countGuestRoom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition-duration: 0s;
+    margin: 0 auto;
+    width: 16;
+    height: 16;
+    border-radius: 6px;
+    fill: none;
+}
+
+.wrapper {
+    width: 76%;
+    position: relative;
+    padding: 15px 20px;
+
+    // search hotel
+    .search__hotels {
+        width: 35%;
+
+        svg {
+            margin-right: 10px;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: rgb(1, 148, 243);
+            font-weight: 700;
+            line-height: 20px;
+            @include fontStyle() // this a styles of multicities
+;
+        }
+    }
+
+    // place styles
+    .places__block {
+        margin-top: 20px;
+        span {
+            color: rgb(3, 18, 26);
+            font-style: 14px;
+            font-weight: 700;
+            @include fontStyle();
+        }
+
+        .choose__place-block {
+            // padding: 5px;
+            display: flex;
+            padding: 4px;
+            margin-top: 8px;
+            border-radius: 8px;
+            align-items: center;
+            border: 1px solid rgba(206, 208, 209, 1);
+            cursor: pointer;
+
+            input {
+                color: rgb(3, 18, 26);
+                border: 0;
+                font-size: 16px;
+                border-radius: 5px;
+                outline-width: 0px;
+                width: 100%;
+                padding: 5px;
+                @include fontStyle();
+                cursor: pointer;
+            }
+        }
+    }
+
+    // date info
+    .date__block {
+        display: flex;
+        margin-top: 20px;
+        gap: 10px;
+
+        .common__block {
+            width: 33%;
+            span {
+                color: rgb(3, 18, 26);
+                font-weight: 700;
+                font-size: 14px;
+            }
+
+            .value__block {
+                display: flex;
+                align-items: center;
+                border: 1px solid rgba(206, 208, 209, 1);
+                width: 95%;
+                border-radius: 8px;
+                margin-top: 5px;
+                cursor: pointer;
+                // margin-left: 10px;
+
+                .arrow-icon {
+                    margin-right: 10px;
+                }
+
+                svg,
+                img {
+                    margin-left: 5px;
+                }
+                .content {
+                    padding: 8px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    margin-left: 5px;
+                    width: 100%;
+                    color: rgb(3, 18, 26);
+                }
+            }
+        }
+
+        .common__block:nth-child(3) {
+            .value__block {
+                border: 0;
+            }
+        }
+    }
+
+    // guest and rooms style
+
+    .guest-rooms__container {
+        margin-top: 15px;
+        .guest-text {
+            color: rgb(3, 18, 26);
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .container-block {
+            display: flex;
+            align-items: center;
+            column-gap: 20px;
+            margin-top: 5px;
+
+            .guest-block {
+                // background-color: red;
+                cursor: pointer;
+
+                width: 70%;
+                @include guestCommon();
+                border: 1px solid rgba(206, 208, 209, 1);
+
+                span {
+                    color: rgb(3, 18, 26);
+                    font-size: 16px;
+                    line-height: 24px;
+                    margin-left: 5px;
+                    flex: 1;
+                }
+
+                img {
+                    margin-right: 5px;
+                }
+            }
+
+            .search-block {
+                @include guestCommon();
+                width: 35%;
+                background-color: rgb(255, 94, 31);
+                justify-content: center;
+
+                span {
+                    color: rgba(255, 255, 255, 1);
+                    font-size: 1rem;
+                    font-weight: 700;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .business-trip {
+            display: flex;
+            align-items: center;
+
+            margin-top: 15px;
+            label {
+                margin-left: 6px;
+                color: rgb(3, 18, 26);
+                font-weight: 500;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            img {
+                margin-left: 10px;
+                width: 20px;
+                aspect-ratio: auto 20 / 20;
+                height: 20px;
+            }
+        }
+
+        .pay-block {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            cursor: pointer;
+
+            span {
+                color: rgb(1, 148, 243);
+                margin-left: 4px;
+                font-weight: 700;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// ============== RENDER STYLES PART ===============
+
+// places info when render
+.wrapper__places {
+    // width: 100%;
+
+    .header {
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(67, 67, 67, 0.17);
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+
+        span {
+            color: rgb(3, 18, 26);
+            font-weight: 700;
+            font-size: 14px;
+            @include fontStyle();
+        }
+    }
+
+    .place__items {
+        @include fontStyle();
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(67, 67, 67, 0.17);
+        cursor: pointer;
+
+        .city__info {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            padding-bottom: 4px;
+
+            span {
+                flex: 1;
+            }
+            .region-text {
+                border: 1px solid rgb(27, 160, 226);
+                font-size: 12px;
+                font-weight: 500;
+                border-radius: 20px;
+                padding: 4px 14px;
+
+                .text {
+                    color: rgb(1, 148, 243);
+                }
+            }
+        }
+
+        .region__info {
+            display: flex;
+            align-items: center;
+            padding: 0px 8px;
+
+            .venue-text {
+                flex: 1;
+                font-weight: 500;
+                color: rgb(3, 18, 26);
+                font-size: 13px;
+            }
+
+            .numberOf-hotel {
+                color: rgb(104, 113, 118);
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+// calendar
+.test-calendar {
+    background-color: white;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px;
+    transition: ease-in 1s;
+    // right: -300px;
+}
+
+// duration render
+.duration__container-block {
+    width: 100%;
+
+    .duration__container {
+        overflow: auto;
+        width: 100%;
+
+        .container__items {
+            width: 100%;
+            &:hover {
+                background-color: rgba(242, 243, 243, 1);
+
+                .circle {
+                    display: block;
+                    background-color: rgba(206, 208, 209, 1);
+                    transition: background-color 300ms ease 0s;
+                }
+            }
+            .fragment {
+                cursor: pointer;
+                width: 225px;
+                margin-left: 20px;
+                padding: 8px 10px;
+
+                .h3-class {
+                    color: rgb(3, 18, 26);
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+
+                .h4-class {
+                    color: rgb(104, 113, 118);
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+            }
+            .circle {
+                position: absolute;
+                display: none;
+                // top: 25px;
+                left: 0;
+                margin-top: 18px;
+
+                margin-left: 10px;
+                border-radius: 9999px;
+                background-color: rgba(1, 148, 243, 1);
+                height: 8px;
+                width: 8px;
+            }
+        }
+    }
+}
+
+// render guest and rooms styles
+
+.guestroom__container {
+    .common__block {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px;
+        .guest-group__block {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            column-gap: 8px;
+
+            span {
+                color: rgb(3, 18, 26);
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        .count__block {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            column-gap: 5px;
+
+            .operator {
+                @include countGuestRoom();
+                background-color: rgb(247, 249, 250);
+            }
+
+            .number {
+                @include countGuestRoom();
+                border: 1px solid rgba(206, 208, 209, 1);
+                color: rgb(3, 18, 26);
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .done-btn {
+        display: flex;
+        justify-content: flex-end;
+        color: rgb(1, 148, 243);
+        font-size: 14px;
+        font-weight: bold;
+        margin-right: 28px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+// command + shift + c to open pointer in element
+// options + command + j to open console

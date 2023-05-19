@@ -3,10 +3,11 @@
     position: relative;
     flex-direction: column;
     min-width: 169px;
-    // max-width: 500px;
+    max-width: 1000px;
     // width: 169px;
-    min-height: 100px;
-    // max-height: 50vh;
+    min-height: 110px;
+    max-height: 50vh;
+    // height: 500%;
     background-color: rgb(255, 255, 255);
     box-shadow: rgb(0 0 0 / 13%) 0px 2px 12px;
     border-radius: 8px;
@@ -28,4 +29,27 @@
         transition: 300ms;
         opacity: 1;
     }
+}
+
+// class in outside
+
+.container {
+    width: 735px;
+    position: relative;
+    right: 55%;
+    padding: 0;
+}
+
+.wrapper__duration {
+    position: relative;
+    // left: 60px;
+    width: 225px;
+    overflow: auto;
+    padding: 0;
+}
+
+.guestroom__wrapper {
+    position: relative;
+    // right: 65px;
+    width: 480px;
 }

@@ -1,3 +1,4 @@
+
 // Nav flight
 @mixin fontStyle {
     font-family: MuseoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -9,10 +10,9 @@
     width: 76%;
     // height: 150%;
     // width: 380%;
-    padding: 12px;
+    // padding: 12px;
     position: relative;
 }
-
 
 h4 {
     color: rgb(3, 18, 26);
@@ -23,117 +23,108 @@ h4 {
     @include fontStyle();
 }
 
-.container__flight-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: rgb(3, 18, 26);
-    font-size: 14px;
-    width: 740px;
-    @include fontStyle();
-}
+// .container__flight-info {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     color: rgb(3, 18, 26);
+//     font-size: 14px;
+//     @include fontStyle();
+// }
 
 // choice radio
-.choice-block {
-    display: flex;
-    align-items: center;
-}
+// .choice-block {
+//     display: flex;
+//     align-items: center;
+// }
 
-.destination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// .destination {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
 
-    // label contain input radio css
+//     // label contain input radio css
+//     .container-radio {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         cursor: pointer;
 
-    .container-radio {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
+//         padding: 10px;
 
-        padding: 10px;
+//         input {
+//             cursor: pointer;
+//         }
 
-        input {
-            cursor: pointer;
-        }
+//         .radio__input {
+//             display: none;
+//         }
 
-        .radio__input {
-            display: none;
-        }
+//         .radio__radio {
+//             width: 22px;
+//             height: 22px;
+//             border: 2px solid rgba(206, 208, 209, 1);
+//             border-radius: 50%;
+//             // background-color: rgba(1, 148, 243, 1);
+//             box-sizing: border-box;
+//             // padding: 4px;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             transition: ease-in-out 0.15s;
 
-        .radio__radio {
-            width: 22px;
-            height: 22px;
-            border: 2px solid rgba(206, 208, 209, 1);
-            border-radius: 50%;
-            // background-color: rgba(1, 148, 243, 1);
-            box-sizing: border-box;
-            // padding: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: ease-in-out 0.15s;
+//             // add content in div
+//             &::after {
+//                 content: "";
+//                 display: block;
+//                 width: 8px;
+//                 height: 8px;
+//                 border: 2px solid rgba(242, 243, 243, 1);
+//                 border-radius: 50%;
+//                 transform: scale(1);
+//                 transition: transform 0.15s;
+//             }
+//         }
 
-            // add content in div
-            &::after {
-                content: "";
-                display: block;
-                width: 8px;
-                height: 8px;
-                border: 2px solid rgba(242, 243, 243, 1);
-                border-radius: 50%;
-                transform: scale(1);
-                transition: transform 0.15s;
-            }
-        }
+//         // css when check
+//         .radio__input:checked + .radio__radio::after {
+//             // transform: scale(1);
+//             background-color: rgba(1, 148, 243, 1);
+//         }
+//         .radio__input:checked + .radio__radio {
+//             border: 2px solid rgb(1, 148, 243);
+//             background-color: rgba(1, 148, 243, 1);
+//             transition: ease-in-out 0.15s;
+//         }
 
-        // css when check
-        .radio__input:checked + .radio__radio::after {
-            // transform: scale(1);
-            background-color: rgba(1, 148, 243, 1);
-        }
-        .radio__input:checked + .radio__radio {
-            border: 2px solid rgb(1, 148, 243);
-            background-color: rgba(1, 148, 243, 1);
-            transition: ease-in-out 0.15s;
-        }
+//         label {
+//             cursor: pointer;
+//         }
+//     }
 
-        label {
-            cursor: pointer;
-        }
-    }
+//     h4 {
+//         margin-left: 10px;
+//     }
+// }
 
-    h4 {
-        margin-left: 10px;
-    }
-}
+// .destination:nth-child(2) {
+//     margin-left: 20px;
+// }
 
-.destination:nth-child(2) {
-    margin-left: 20px;
-    
-    label {
-        padding-right: 30px;
+// .map {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-right: 10rem;
+//     font-weight: 700;
+//     text-align: center;
+//     color: rgb(1, 148, 243);
+//     line-height: 16px;
 
-    }
-}
-
-
-
-.map {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 10rem;
-    font-weight: 700;
-    text-align: center;
-    color: rgb(1, 148, 243);
-    line-height: 16px;
-
-    .map-block {
-        margin-left: 8px;
-    }
-}
+//     .map-block {
+//         margin-left: 8px;
+//     }
+// }
 
 // contain info flight from - to & types passengers
 .container__info-way {
@@ -209,17 +200,187 @@ h4 {
     }
 
     input {
-        // outline: none;
         // width: 100%;
         line-height: 24px;
+        // value={returnWay}
         font-size: 16px;
         border: 0;
         outline-width: 0px;
-
         overflow: hidden;
         @include fontStyle();
     }
+    // ===========================================
+    // block info date in multi-city
+    .container__block-info-date {
+        margin-left: 20px;
+        // width: 38%;
+        width: 80%;
+        .info-date {
+            .calendar {
+                svg {
+                    margin-right: 8px;
+                }
+                display: flex;
+                align-items: center;
+                margin-top: 5px;
+                border-radius: 8px;
+                padding: 8px;
+                font-weight: 430;
+                line-height: 24px;
+                font-size: 16px;
+                cursor: pointer;
+                border: 1px solid rgba(206, 208, 209, 1);
+
+                overflow: hidden;
+                @include fontStyle();
+                &:hover {
+                    border: 1px solid rgb(104, 113, 118);
+                }
+            }
+        }
+    }
+
+    // icon remove flights
+    .close__flights-icon {
+        position: relative;
+        // display: block;
+        top: 15px;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    // .container__info-way:nth-child(2) {
+    //     margin-top: 0;
+    // }
 }
+
+// ADD ANOTHER FLIGHTS SCSS | multi-city scss
+.container__add-flights {
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+    width: 30%;
+    padding: 5px;
+
+    h4 {
+        color: rgb(1, 148, 243);
+        padding-left: 8px;
+        font-weight: 700;
+        line-height: 16px;
+        @include fontStyle();
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// multi-city scss
+
+.container__booking-block {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    .passengers-block {
+        margin-left: 10px;
+        width: 53%;
+        .info-passengers {
+            width: 100%;
+            .passenger__seat {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                border-top: 1px solid #ced0d1;
+                border: 1px solid rgba(206, 208, 209, 1);
+                padding: 8px;
+                border-radius: 8px;
+                margin-top: 5px;
+                width: 98.2%;
+                cursor: pointer;
+                line-height: 24px;
+                font-size: 16px;
+                @include fontStyle();
+                &:hover {
+                    border: 1px solid rgb(104, 113, 118);
+                }
+
+                img {
+                    margin-right: 8px;
+                }
+
+                h4 {
+                    width: 90%;
+                }
+            }
+        }
+    }
+
+    .seats-block {
+        margin-left: 10px;
+        width: 43%;
+        .info-seats {
+            // width: 100%;
+            .seat-content {
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                margin-top: 5px;
+                border-radius: 8px;
+                width: 100%;
+                cursor: pointer;
+                border: 1px solid rgba(206, 208, 209, 1);
+                line-height: 24px;
+                font-weight: 400;
+                font-size: 16px;
+                @include fontStyle();
+
+                &:hover {
+                    border: 1px solid rgb(104, 113, 118);
+                }
+
+                img {
+                    margin-right: 8px;
+                }
+
+                h4 {
+                    font-size: 16px;
+                    line-height: 24px;
+                    font-weight: 500;
+                    width: 78%;
+                    @include fontStyle();
+                }
+
+                svg {
+                    position: relative;
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
+.more__info-block {
+    margin-left: 10px;
+    margin-top: 15px;
+
+    span {
+        color: rgb(3, 18, 26);
+        font-weight: 500;
+        line-height: 20px;
+        font-size: 14px;
+        @include fontStyle();
+    }
+
+    a {
+        @include fontStyle();
+        color: rgb(1, 148, 243);
+        margin-left: 4px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+// one way | round-trip scss
 
 .reverse-icon {
     position: relative;
@@ -233,7 +394,7 @@ h4 {
 .container__date {
     display: flex;
     margin: 10px;
-    margin-top: 30px;
+    // margin-top: 30px;
 
     .container__date-block {
         display: flex;
@@ -304,62 +465,63 @@ h4 {
             // .info-date:nth-child(2) .calendar:nth-child(1) {
             //     display: none;
             // }
-            .icon-calendar {
-            }
+
             .testClass {
                 display: none;
             }
         }
     }
 
-    .seats-block {
-        width: 50%;
-        .info-seats {
-            width: 100%;
-            .seat-content {
-                display: flex;
-                align-items: center;
-                padding: 8px;
-                margin-top: 5px;
-                border-radius: 8px;
-                width: 100%;
-                cursor: pointer;
-                border: 1px solid rgba(206, 208, 209, 1);
-                line-height: 24px;
-                font-weight: 400;
-                font-size: 16px;
-                @include fontStyle();
+    // .seats-block {
+    //     width: 50%;
+    //     .info-seats {
+    //         width: 100%;
+    //         .seat-content {
+    //             display: flex;
+    //             align-items: center;
+    //             padding: 8px;
+    //             margin-top: 5px;
+    //             border-radius: 8px;
+    //             width: 100%;
+    //             cursor: pointer;
+    //             border: 1px solid rgba(206, 208, 209, 1);
+    //             line-height: 24px;
+    //             font-weight: 400;
+    //             font-size: 16px;
+    //             @include fontStyle();
 
-                &:hover {
-                    border: 1px solid rgb(104, 113, 118);
-                }
+    //             &:hover {
+    //                 border: 1px solid rgb(104, 113, 118);
+    //             }
 
-                img {
-                    margin-right: 8px;
-                }
+    //             img {
+    //                 margin-right: 8px;
+    //             }
 
-                h4 {
-                    font-size: 16px;
-                    line-height: 24px;
-                    font-weight: 500;
-                    width: 78%;
-                    @include fontStyle();
-                }
+    //             h4 {
+    //                 font-size: 16px;
+    //                 line-height: 24px;
+    //                 font-weight: 500;
+    //                 width: 78%;
+    //                 @include fontStyle();
+    //             }
 
-                svg {
-                    position: relative;
-                    flex: 1;
-                    // right: -60%;
+    //             svg {
+    //                 position: relative;
+    //                 flex: 1;
+    //                 // right: -60%;
 
-                    // background-color: red;
-                }
-            }
-        }
-    }
+    //                 // background-color: red;
+    //             }
+    //         }
+    //     }
+    // }
 }
 
 // passenger wrapper
 .shown {
+    width: 394px;
+
     .container__block-passengers {
         display: flex;
         width: 330px;
@@ -392,8 +554,8 @@ h4 {
             display: flex;
             align-items: center;
             justify-content: center;
-            // margin-left: 10px;
-            margin-right: 20px;
+            // margin-right: 20px;
+            margin-right: -50px;
 
             img {
                 padding: 5px;
@@ -429,7 +591,7 @@ h4 {
     display: flex;
     justify-content: flex-end;
     margin-right: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     button {
         background-color: transparent;
         padding: 5px;
@@ -498,6 +660,7 @@ h4 {
     justify-content: flex-end;
     margin-right: 10px;
     margin-top: 15px;
+    padding-bottom: 5px;
 
     .btn__search-item {
         @include fontStyle();
